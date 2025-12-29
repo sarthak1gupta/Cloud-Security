@@ -955,29 +955,38 @@ With fitted parameters:
 
 ### 10.3 Novelty Claims
 
-**Claim 1**: **First parametric latency model in PQC-IoT literature**
-- Evidence: Literature review shows no prior T(S,R) models
-- Impact: Enables prediction, optimization, capacity planning (not possible before)
+**Claim 1: First parametric latency model for PQC-enabled IoT communication
+**
+To the best of our knowledge, this work presents the first explicit parametric model that expresses end-to-end latency as a function of payload size and message rate for post-quantum cryptographic (PQC) IoT systems. A comprehensive review of existing PQC-IoT and secure telemetry literature reveals that prior studies report latency measurements or averages, but do not formalize latency as a predictive function T(S,R).
+**
+Impact:**
+By introducing a parametric latency model, this work enables prediction, optimization, and capacity planning, which are not possible with descriptive or point-measurement approaches alone.
 
-**Claim 2**: **Theory-guided empirical modeling**
-- Derivation from network bandwidth + M/M/1 queueing theory
-- Not just curve fitting → physical interpretation of α, β, γ
-- Impact: Model generalizes to other systems with similar architecture
+**Claim 2: Theory-guided empirical modeling rather than ad-hoc curve fitting**
 
-**Claim 3**: **Separate models per (path, algorithm) configuration**
-- 4 models fitted (HTTP/IoT Hub × Kyber512/768)
-- Enables fair comparison: IoT Hub 33% faster (α smaller), 2.7x less load-sensitive (β smaller)
-- Impact: Data-driven protocol selection
+The proposed model is derived from first principles, combining network bandwidth considerations with classical M/M/1 queueing theory to capture both transmission and load-dependent delays. Each parameter (α,β,γ) has a clear physical interpretation, corresponding respectively to payload sensitivity, load sensitivity, and baseline latency.
+This approach contrasts with purely empirical curve fitting, as the functional form is constrained by known system behavior, ensuring interpretability and robustness.
 
-**Claim 4**: **Validated on 1000+ real-world measurements**
-- Not simulated, not toy data → production Azure Functions, real RPi device
-- R² > 0.85, RMSE < 3 ms → model is accurate
-- Impact: Confidence in predictions for deployment decisions
+**Impact:**
+Because the model is grounded in established systems theory, it can be generalized to other cloud-mediated IoT architectures that exhibit similar bandwidth and queueing characteristics.
 
-**Claim 5**: **Open methodology for reproducibility**
-- Python code provided, Kusto queries documented
-- Other researchers can fit their own α, β, γ on their systems
-- Impact: Replicability, community model database
+**Claim 3: Configuration-specific models enable fair protocol and algorithm comparison**
+
+Instead of fitting a single aggregate model, separate latency models were fitted for each (communication path, cryptographic configuration) combination, resulting in four distinct models (HTTP vs. IoT Hub × Kyber512 vs. Kyber768).
+
+This separation avoids confounding effects and allows direct, quantitative comparison across protocols. For example, results show that the IoT Hub path exhibits a 33% lower payload sensitivity (smaller α) and is approximately 2.7× less load-sensitive (smaller β) than the HTTP path.
+
+**Impact:**
+This enables data-driven protocol selection, rather than relying on anecdotal performance claims or single-point benchmarks.
+
+
+**Claim 5: Open and reproducible modeling methodology**
+
+All components of the modeling process—including Python fitting scripts and Kusto query formulations—are documented and made available. This allows other researchers and practitioners to replicate the methodology and fit their own 
+α, β, and γ parameters on different hardware, networks, or cloud platforms.
+**
+Impact**:
+This supports reproducibility and extensibility, enabling the development of a shared, community-driven body of comparative PQC-IoT performance models.
 
 ---
 
