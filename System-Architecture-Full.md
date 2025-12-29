@@ -167,11 +167,6 @@ The system supports multiple experimental configurations via `algoProfile`:
    - Demonstrates encoding impact on RTT
    - Typical payload: ~10-11 KB (base64 expansion)
 
-4. `no_pqc_baseline`
-   - No cryptographic operations
-   - Dummy 5-byte payloads
-   - Control group for measuring pure protocol overhead
-   - Typical payload: <1 KB
 
 **Rate Mode Control**
 
